@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/tea.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/tea.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/tea.svg">
+  <link rel="mask-icon" href="/images/tea.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -403,8 +403,8 @@
 </ul>
 <h2 id="项目中遇到过哪些问题"><a href="#项目中遇到过哪些问题" class="headerlink" title="项目中遇到过哪些问题"></a>项目中遇到过哪些问题</h2><ul>
 <li>umi中，qiankun插件和mfsu不能共存，开启mfsu会有很多奇怪的问题，所以我关闭了mfsu</li>
-<li>各个应用间重复依赖过多，我在主应用把需要的依赖挂载到window上，使用external去获取依赖，算是解决了依赖不共享的问题，但是这种不够优雅，最新的<a href="mailto:&#x75;&#109;&#x69;&#x40;&#52;&#x2e;&#120;">&#x75;&#109;&#x69;&#x40;&#52;&#x2e;&#120;</a>支持<a target="_blank" rel="noopener" href="https://webpack.docschina.org/concepts/module-federation/">Module Federation(模块联邦)</a>，可以将数据分享到remote.js文件中，应用可通过访问remote.js获取到分享的数据，但这不是umi的正式功能，有兼容问题</li>
-<li>应用间的通信：在以前的项目中，我使用路由绑定式引入的子应用，这种方式有个问题，父应用数据不能实时更新给子应用，只能在<code>app.ts</code>里用<code>useQiankunStateForSlave</code>方法传，我单独写了个工具类，将父应用数据静态的传给了子应用。现在<a href="mailto:&#x75;&#x6d;&#105;&#x40;&#52;&#46;&#120;">&#x75;&#x6d;&#105;&#x40;&#52;&#46;&#120;</a>版本里，我用<code>&lt;MicroApp name=&quot;app1&quot; /&gt;</code>的方式，可以动态传值，非常方便</li>
+<li>各个应用间重复依赖过多，我在主应用把需要的依赖挂载到window上，使用external去获取依赖，算是解决了依赖不共享的问题，但是这种不够优雅，最新的<a href="mailto:&#x75;&#109;&#105;&#64;&#x34;&#x2e;&#120;">&#x75;&#109;&#105;&#64;&#x34;&#x2e;&#120;</a>支持<a target="_blank" rel="noopener" href="https://webpack.docschina.org/concepts/module-federation/">Module Federation(模块联邦)</a>，可以将数据分享到remote.js文件中，应用可通过访问remote.js获取到分享的数据，但这不是umi的正式功能，有兼容问题</li>
+<li>应用间的通信：在以前的项目中，我使用路由绑定式引入的子应用，这种方式有个问题，父应用数据不能实时更新给子应用，只能在<code>app.ts</code>里用<code>useQiankunStateForSlave</code>方法传，我单独写了个工具类，将父应用数据静态的传给了子应用。现在<a href="mailto:&#117;&#x6d;&#105;&#64;&#52;&#46;&#x78;">&#117;&#x6d;&#105;&#64;&#52;&#46;&#x78;</a>版本里，我用<code>&lt;MicroApp name=&quot;app1&quot; /&gt;</code>的方式，可以动态传值，非常方便</li>
 <li>多实例的问题：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Uncaught Error<span class="punctuation">:</span> Invalid hook call. Hooks can only be called inside of the body of a function component. This could happen for one of the following reasons<span class="punctuation">:</span></span><br><span class="line">- You might have mismatching versions of React and the renderer (such as React DOM)</span><br><span class="line">- You might be breaking the Rules of Hooks</span><br><span class="line">- You might have more than one copy of React in the same app</span><br><span class="line">See https<span class="punctuation">:</span><span class="comment">//fb.me/react-invalid-h... for tips about how to debug and fix this problem.</span></span><br></pre></td></tr></table></figure>
 子应用引用父应用的组件，将会触发以上报错，因为父应用与子应用使用了非同个react，解决方法是将父应用的react暴露给子应用使用，子应用用external接收</li>
 <li>国际化问题：antd默认英文，国际化可通过<code>ConfigProvider</code>配置，但是父应用的组件设置了国际化不会在子应用中起作用，只能在子应用中包裹父应用组件才能设置，这样还是会有问题，每个引用自父应用的antd组件都需要设置，比较麻烦，暂时无解</li>
